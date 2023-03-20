@@ -2,6 +2,7 @@ package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
 
+import org.eclipse.jgit.lib.UserConfig;
 import org.eclipse.jgit.transport.CredentialItem.Username;
 
 import nz.ac.auckland.se281.Main.PolicyType;
@@ -27,19 +28,19 @@ public class InsuranceSystem {
     }
   }
 
-  static ArrayList<UserProfile> data_list = new ArrayList<>();
+  private ArrayList<Person> data_list = new ArrayList<>();
 
-  public void createNewProfile(UserProfile.userName,UserProfile.age) {
+  public void createNewProfile(String userName,String age) {
     // TODO: Complete this method.
 
-    MessageCli.PROFILE_CREATED.printMessage(userName,age);
+    MessageCli.PROFILE_CREATED.printMessage(Person.getName,Person.getAge);
 
-    if(data_list.contains(data_list)){
-      MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(userName);
+    if(data_list.contains(data_list.getName)){
+      MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage();
     }
     else{
       MessageCli.PROFILE_CREATED.printMessage(userName,age);
-      System.out.println(data_list);
+      data_list.add();
     }
   }
 
@@ -63,8 +64,12 @@ public class InsuranceSystem {
     
     for(int i = 0;i < data_list.size();i++) {   
 
-      MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(Integer.toString(i),UserProfile.userName,UserProfile.age);//
-      //<SPACE><RANK><COLON><SPACE><USERNAME><COMMA><SPACE><AGE>
+      //MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(Integer.toString(i),UserProfile.userName,UserProfile.age);//
+      
+      Person userName = data_list.get(i);
+      System.out.println(" " + Integer.toString(i + 1) + ": ");
+      userName.printDetails();
     }
   }
+
 }
