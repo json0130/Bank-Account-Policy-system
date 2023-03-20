@@ -4,11 +4,12 @@ public class Person{
 
     // instance fields
     //public string userName : it can be used by other classes straight away since it is public
-    private String userName; //private can not be used by other classes
+    private String Name; //private can not be used by other classes
     private String age;
 
     public Person(String userName,String age){ //constructor : no return type needed
-        this.userName = userName;
+        
+        Name = userName;
         this.age = age;
     }
     public String getAge(){
@@ -16,11 +17,11 @@ public class Person{
     }
 
     public String getName(){
-        return userName;
+        return Name;
     }
 
     public void printDetails(){
-        System.out.println(userName + ", " + age);
+        System.out.println(Name + ", " + age);
         //<SPACE><RANK><COLON><SPACE><USERNAME><COMMA><SPACE><AGE> 
     }
 }
