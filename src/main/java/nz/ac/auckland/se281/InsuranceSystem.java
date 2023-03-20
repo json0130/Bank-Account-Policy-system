@@ -2,6 +2,8 @@ package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
 
+import org.eclipse.jgit.transport.CredentialItem.Username;
+
 import nz.ac.auckland.se281.Main.PolicyType;
 
 public class InsuranceSystem {
@@ -11,47 +13,33 @@ public class InsuranceSystem {
   }
   public void printDatabase() {
     // TODO: Complete this method.
-    int number = data_Userlist.size();
 
-    if(data_Userlist.size() < 1){
-      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(number, "", ".");
+    if(data_list.size() < 1){
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage("0", "", ".");
     }
-    else if(data_Userlist.size() == 1){
-      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(number, "", ":");
-      
-      for(String list : data_Userlist) {   
-
-        MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(number,list,list);
-        //<SPACE><RANK><COLON><SPACE><USERNAME><COMMA><SPACE><AGE>
-      }
+    else if(data_list.size() == 1){
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage("1", "", ":");
+      printProfile();
     }
     else{
-      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(number, "s", ":");
-
-      for(String list : data_Userlist) {   
-      
-        MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(number,list,list);
-        //<SPACE><RANK><COLON><SPACE><USERNAME><COMMA><SPACE><AGE>
-      }
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(Integer.toString(data_list.size()), "s", ":");
+      printProfile();
     }
   }
 
-  static ArrayList<> data_Userlist = new ArrayList();
-  static ArrayList<> data_Agelist = new ArrayList();
+  static ArrayList<UserProfile> data_list = new ArrayList<>();
 
-  public void createNewProfile(String userName, String age) {
+  public void createNewProfile(UserProfile.userName,UserProfile.age) {
     // TODO: Complete this method.
-    data_Userlist.add(userName);
-    data_Agelist.add(age);
+
     MessageCli.PROFILE_CREATED.printMessage(userName,age);
 
-    if(data_Userlist.contains(userName)){
+    if(data_list.contains(data_list)){
       MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(userName);
-      data_Userlist.remove(userName);
     }
     else{
       MessageCli.PROFILE_CREATED.printMessage(userName,age);
-      System.out.println(data_Userlist);
+      System.out.println(data_list);
     }
   }
 
@@ -69,5 +57,14 @@ public class InsuranceSystem {
 
   public void createPolicy(PolicyType type, String[] options) {
     // TODO: Complete this method.
+  }
+
+  public void printProfile(){
+    
+    for(int i = 0;i < data_list.size();i++) {   
+
+      MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(Integer.toString(i),UserProfile.userName,UserProfile.age);//
+      //<SPACE><RANK><COLON><SPACE><USERNAME><COMMA><SPACE><AGE>
+    }
   }
 }
