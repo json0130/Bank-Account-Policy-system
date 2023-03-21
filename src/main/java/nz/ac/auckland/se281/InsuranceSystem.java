@@ -2,6 +2,8 @@ package nz.ac.auckland.se281;
 
 import java.util.ArrayList;
 
+import javax.swing.plaf.TreeUI;
+
 import org.eclipse.jgit.lib.UserConfig;
 import org.eclipse.jgit.transport.CredentialItem.Username;
 
@@ -17,7 +19,7 @@ public class InsuranceSystem {
   public void printDatabase() {
 
     if(data_list.size() < 1){
-      MessageCli.PRINT_DB_POLICY_COUNT.printMessage("0", "", ".");
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage("0", "s", ".");
     }
     else if(data_list.size() == 1){
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage("1", "", ":");
@@ -35,14 +37,21 @@ public class InsuranceSystem {
     
     String fixedName = Name.substring(0,1).toUpperCase() + Name.substring(1).toLowerCase();
     Person user1 = new Person(fixedName, age);
-
-    if(data_list.contains(fixedName)){
-      MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage();
+    
+    if(checkuser(fixedName) == true){
+      if(checkage(fixedName,age) == true){
+        data_list.add(user1);
+        MessageCli.PROFILE_CREATED.printMessage(fixedName,age);
+      }
+      else{
+        data_list.remove(user1);
+        MessageCli.INVALID_AGE.printMessage(age,fixedName);
+      }
     }
     else{
-      MessageCli.PROFILE_CREATED.printMessage(fixedName,age);
-      data_list.add(user1);
+      MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(fixedName);
     }
+    
   }
 
   public void loadProfile(String userName) {
@@ -62,15 +71,33 @@ public class InsuranceSystem {
   }
 
   public void printProfile(){
-    
     for(int i = 0;i < data_list.size();i++) {   
-
       //MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(Integer.toString(i+1),);//
-      
+    
       Person Name = data_list.get(i);
       System.out.print(" " + Integer.toString(i + 1) + ": ");
       Name.printDetails();
     }
   }
 
+  public boolean checkuser(String fixedName){
+    for (Person username : data_list){
+        if(fixedName.equals(username.getName())){
+          return false;
+        }
+      }
+    return true;
+  }
+
+  public boolean checkage(String fixedName,String age){
+    try {
+        if(Integer.parseInt(age) > 0){
+          return true;
+        }else{
+          return false;
+        }  
+    } catch (Exception e) {
+      return false;
+    }
+  }
 }
