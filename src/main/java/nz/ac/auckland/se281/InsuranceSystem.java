@@ -73,8 +73,8 @@ public class InsuranceSystem {
   }
 
   public boolean checkuser(String fixedName) {
-    for (Person Username : dataList) {
-      if (fixedName.equals(Username.getName())) {
+    for (Person user : dataList) {
+      if (fixedName.equals(user.getName())) {
         return false;
       }
     }
