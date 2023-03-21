@@ -11,34 +11,34 @@ public class InsuranceSystem {
 
   public void printDatabase() {
 
-    if (data_list.size() < 1) {
+    if (Data_list.size() < 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage("0", "s", ".");
-    } else if (data_list.size() == 1) {
+    } else if (Data_list.size() == 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage("1", "", ":");
       printProfile();
     } else {
-      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(Integer.toString(data_list.size()), "s", ":");
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(Integer.toString(Data_list.size()), "s", ":");
       printProfile();
     }
   }
 
-  private ArrayList<Person> data_list = new ArrayList<>();
+  private ArrayList<Person> Data_list = new ArrayList<>();
 
-  public void createNewProfile(String Name, String age) {
+  public void createNewProfile(String Name, String Age) {
 
     String fixedName = Name.substring(0, 1).toUpperCase() + Name.substring(1).toLowerCase();
-    Person user1 = new Person(fixedName, age);
+    Person user1 = new Person(fixedName, Age);
 
     if (checkuser(fixedName) == true) {
       if (fixedName.length() < 3) {
         MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(fixedName);
       } else {
-        if (checkage(fixedName, age) == true) {
-          data_list.add(user1);
-          MessageCli.PROFILE_CREATED.printMessage(fixedName, age);
+        if (checkage(fixedName, Age) == true) {
+          Data_list.add(user1);
+          MessageCli.PROFILE_CREATED.printMessage(fixedName, Age);
         } else {
-          data_list.remove(user1);
-          MessageCli.INVALID_AGE.printMessage(age, fixedName);
+          Data_list.remove(user1);
+          MessageCli.INVALID_AGE.printMessage(Age, fixedName);
         }
       }
     } else {
@@ -63,27 +63,27 @@ public class InsuranceSystem {
   }
 
   public void printProfile() {
-    for (int i = 0; i < data_list.size(); i++) {
+    for (int i = 0; i < Data_list.size(); i++) {
       // MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(Integer.toString(i+1),);//
 
-      Person Name = data_list.get(i);
+      Person Name = Data_list.get(i);
       System.out.print(" " + Integer.toString(i + 1) + ": ");
       Name.printDetails();
     }
   }
 
   public boolean checkuser(String fixedName) {
-    for (Person username : data_list) {
-      if (fixedName.equals(username.getName())) {
+    for (Person Username : Data_list) {
+      if (fixedName.equals(Username.getName())) {
         return false;
       }
     }
     return true;
   }
 
-  public boolean checkage(String fixedName, String age) {
+  public boolean checkage(String fixedName, String Age) {
     try {
-      if (Integer.parseInt(age) > 0) {
+      if (Integer.parseInt(Age) > 0) {
         return true;
       } else {
         return false;
