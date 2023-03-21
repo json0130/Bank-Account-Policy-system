@@ -11,34 +11,34 @@ public class InsuranceSystem {
 
   public void printDatabase() {
 
-    if (Data_list.size() < 1) {
+    if (dataList.size() < 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage("0", "s", ".");
-    } else if (Data_list.size() == 1) {
+    } else if (dataList.size() == 1) {
       MessageCli.PRINT_DB_POLICY_COUNT.printMessage("1", "", ":");
       printProfile();
     } else {
-      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(Integer.toString(Data_list.size()), "s", ":");
+      MessageCli.PRINT_DB_POLICY_COUNT.printMessage(Integer.toString(dataList.size()), "s", ":");
       printProfile();
     }
   }
 
-  private ArrayList<Person> Data_list = new ArrayList<>();
+  private ArrayList<Person> dataList = new ArrayList<>();
 
-  public void createNewProfile(String Name, String Age) {
+  public void createNewProfile(String name, String age) {
 
-    String fixedName = Name.substring(0, 1).toUpperCase() + Name.substring(1).toLowerCase();
-    Person user1 = new Person(fixedName, Age);
+    String fixedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+    Person user1 = new Person(fixedName, age);
 
     if (checkuser(fixedName) == true) {
       if (fixedName.length() < 3) {
         MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(fixedName);
       } else {
-        if (checkage(fixedName, Age) == true) {
-          Data_list.add(user1);
-          MessageCli.PROFILE_CREATED.printMessage(fixedName, Age);
+        if (checkage(fixedName, age) == true) {
+          dataList.add(user1);
+          MessageCli.PROFILE_CREATED.printMessage(fixedName, age);
         } else {
-          Data_list.remove(user1);
-          MessageCli.INVALID_AGE.printMessage(Age, fixedName);
+          dataList.remove(user1);
+          MessageCli.INVALID_AGE.printMessage(age, fixedName);
         }
       }
     } else {
@@ -63,17 +63,17 @@ public class InsuranceSystem {
   }
 
   public void printProfile() {
-    for (int i = 0; i < Data_list.size(); i++) {
+    for (int i = 0; i < dataList.size(); i++) {
       // MessageCli.PRINT_DB_PROFILE_HEADER_MINIMAL.printMessage(Integer.toString(i+1),);//
 
-      Person Name = Data_list.get(i);
+      Person name = dataList.get(i);
       System.out.print(" " + Integer.toString(i + 1) + ": ");
-      Name.printDetails();
+      name.printDetails();
     }
   }
 
   public boolean checkuser(String fixedName) {
-    for (Person Username : Data_list) {
+    for (Person Username : dataList) {
       if (fixedName.equals(Username.getName())) {
         return false;
       }
@@ -81,9 +81,9 @@ public class InsuranceSystem {
     return true;
   }
 
-  public boolean checkage(String fixedName, String Age) {
+  public boolean checkage(String fixedName, String age) {
     try {
-      if (Integer.parseInt(Age) > 0) {
+      if (Integer.parseInt(age) > 0) {
         return true;
       } else {
         return false;
