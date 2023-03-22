@@ -24,6 +24,7 @@ public class InsuranceSystem {
 
   private ArrayList<Person> dataList = new ArrayList<>();
   // ArrayList that stores class person
+
   public void createNewProfile(String name, String age) {
     // this method create a new profile and check errors
     String fixedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
