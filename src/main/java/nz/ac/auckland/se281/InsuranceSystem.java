@@ -37,7 +37,6 @@ public class InsuranceSystem {
           dataList.add(user1);
           MessageCli.PROFILE_CREATED.printMessage(fixedName, age);
         } else {
-          dataList.remove(user1);
           MessageCli.INVALID_AGE.printMessage(age, fixedName);
         }
       }
