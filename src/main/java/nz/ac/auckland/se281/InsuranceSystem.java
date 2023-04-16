@@ -25,6 +25,8 @@ public class InsuranceSystem {
   private ArrayList<Person> dataList = new ArrayList<>();
   // ArrayList that stores class person
 
+  public String loadedUser = null;
+
   public void createNewProfile(String name, String age) {
     // this method create a new profile and check errors
     String fixedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
@@ -47,12 +49,30 @@ public class InsuranceSystem {
     }
   }
 
-  public void loadProfile(String userName) {
-    // TODO: Complete this method.
+  public void loadProfile(String name) {
+    // Check if the profile is found or not and print out the message
+
+    String fixedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+    if (fixedName == loadedUser) {
+      MessageCli.CANNOT_CREATE_WHILE_LOADED.printMessage(fixedName);
+    } else {
+      if (checkuser(fixedName) == false) {
+        MessageCli.PROFILE_LOADED.printMessage(fixedName);
+        loadedUser = fixedName;
+      } else {
+        MessageCli.NO_PROFILE_FOUND_TO_LOAD.printMessage(fixedName);
+      }
+    }
   }
 
   public void unloadProfile() {
-    // TODO: Complete this method.
+    // unload the user that is loaded and print out the message
+    if (loadedUser == null) {
+      MessageCli.NO_PROFILE_LOADED.printMessage();
+    } else {
+      MessageCli.PROFILE_UNLOADED.printMessage(loadedUser);
+      loadedUser = null;
+    }
   }
 
   public void deleteProfile(String userName) {
@@ -65,11 +85,23 @@ public class InsuranceSystem {
 
   public void printProfile() {
     // It prints all of the elements in the arraylist
+    // It also check if the user is equal to loadedUser or not and print out the message
     for (int i = 0; i < dataList.size(); i++) {
       Person name = dataList.get(i);
-      System.out.print(" " + Integer.toString(i + 1) + ": ");
-      name.printDetails();
+      if (name.getName().equals(loadedUser)) {
+        System.out.print(" *** " + Integer.toString(i + 1) + ": ");
+        name.printDetails();
+      } else {
+        System.out.print(" " + Integer.toString(i + 1) + ": ");
+        name.printDetails();
+      }
     }
+  }
+
+  public String fixProfileName(String name) {
+    // It fixes the name to be capitalised
+    String fixedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+    return fixedName;
   }
 
   public boolean checkuser(String fixedName) {

@@ -1,5 +1,7 @@
 package nz.ac.auckland.se281;
 
+import javax.print.attribute.standard.PrinterName;
+
 public class Person {
   // instance fields
   // public string userName : it can be used by other classes straight away since it is public
@@ -22,4 +24,5 @@ public class Person {
   public void printDetails() {
     System.out.println(name + ", " + age);
   }
+
 }
