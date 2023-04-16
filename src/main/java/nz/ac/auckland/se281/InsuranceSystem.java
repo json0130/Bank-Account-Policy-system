@@ -76,7 +76,28 @@ public class InsuranceSystem {
   }
 
   public void deleteProfile(String userName) {
-    // TODO: Complete this method.
+    // It delete selected profile from the arraylist.
+    // If the profile is loaded then it will print out the message
+
+    String fixedName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
+
+    if (checkuser(fixedName) == false) {
+      // It check if the user is equal to loadedUser or not and print out the message
+      // If the user is not eqaul to the loadedUSer then delete the user from the arraylist
+      if (fixedName.equals(loadedUser)) {
+        MessageCli.CANNOT_DELETE_PROFILE_WHILE_LOADED.printMessage(fixedName);
+      } else {
+        for (int i = 0; i < dataList.size(); i++) {
+          Person name = dataList.get(i);
+          if (fixedName.equals(name.getName())) {
+            dataList.remove(i);
+            MessageCli.PROFILE_DELETED.printMessage(fixedName);
+          }
+        }
+      }
+    } else {
+      MessageCli.NO_PROFILE_FOUND_TO_DELETE.printMessage(fixedName);
+    }
   }
 
   public void createPolicy(PolicyType type, String[] options) {
