@@ -49,10 +49,10 @@ public class InsuranceSystem {
     }
   }
 
-  public void loadProfile(String name) {
+  public void loadProfile(String userName) {
     // Check if the profile is found or not and print out the message
 
-    String fixedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
+    String fixedName = userName.substring(0, 1).toUpperCase() + userName.substring(1).toLowerCase();
     if (fixedName == loadedUser) {
       MessageCli.CANNOT_CREATE_WHILE_LOADED.printMessage(fixedName);
     } else {
@@ -117,12 +117,6 @@ public class InsuranceSystem {
         name.printDetails();
       }
     }
-  }
-
-  public String fixProfileName(String name) {
-    // It fixes the name to be capitalised
-    String fixedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
-    return fixedName;
   }
 
   public boolean checkuser(String fixedName) {
