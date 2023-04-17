@@ -102,6 +102,49 @@ public class InsuranceSystem {
 
   public void createPolicy(PolicyType type, String[] options) {
     // TODO: Complete this method.
+    // It create a new policy and check errors
+    if (loadedUser == null) {
+      MessageCli.NO_PROFILE_LOADED.printMessage();
+    } else {
+      if (type == PolicyType.HOME) {
+        String Sum_Insured = options[0];
+        String address = options[1];
+        String rental = options[2];
+        String contents = options[3];
+        Home home = new Home(Sum_Insured, address, rental, contents);
+        for (Person user : dataList) {
+          if (loadedUser.equals(user.getName())) {
+            user.addPolicy(home);
+            MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "Home");
+          }
+        }
+      } else if (type == PolicyType.CAR) {
+        String Sum_Insured = options[0];
+        String address = options[1];
+        String rental = options[2];
+        String contents = options[3];
+        Car car = new Car(Sum_Insured, address, rental, contents);
+        for (Person user : dataList) {
+          if (loadedUser.equals(user.getName())) {
+            user.addPolicy(car);
+            MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "Car");
+          }
+        }
+      } else if (type == PolicyType.LIFE) {
+        String Sum_Insured = options[0];
+        String address = options[1];
+        String rental = options[2];
+        String contents = options[3];
+        Life LIFE = new Life(Sum_Insured, address, rental, contents);
+        for (Person user : dataList) {
+          if (loadedUser.equals(user.getName())) {
+            user.addPolicy(LIFE);
+            MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "Travel");
+          }
+        }
+      }
+    }
+
   }
 
   public void printProfile() {
