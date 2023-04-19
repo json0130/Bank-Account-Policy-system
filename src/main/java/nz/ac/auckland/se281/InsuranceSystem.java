@@ -100,68 +100,6 @@ public class InsuranceSystem {
     }
   }
 
-  public void createPolicy(PolicyType type, String[] options) {
-    // TODO: Complete this method.
-    // It create a new policy and check errors
-    if (loadedUser == null) {
-      MessageCli.NO_PROFILE_LOADED.printMessage();
-    } else {
-      if (type == PolicyType.HOME) {
-        String Sum_Insured = options[0];
-        String address = options[1];
-        String rental = options[2];
-        String contents = options[3];
-        Home home = new Home(Sum_Insured, address, rental, contents);
-        for (Person user : dataList) {
-          if (loadedUser.equals(user.getName())) {
-            user.addPolicy(home);
-            MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "Home");
-          }
-        }
-      } else if (type == PolicyType.CAR) {
-        String Sum_Insured = options[0];
-        String address = options[1];
-        String rental = options[2];
-        String contents = options[3];
-        Car car = new Car(Sum_Insured, address, rental, contents);
-        for (Person user : dataList) {
-          if (loadedUser.equals(user.getName())) {
-            user.addPolicy(car);
-            MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "Car");
-          }
-        }
-      } else if (type == PolicyType.LIFE) {
-        String Sum_Insured = options[0];
-        String address = options[1];
-        String rental = options[2];
-        String contents = options[3];
-        Life LIFE = new Life(Sum_Insured, address, rental, contents);
-        for (Person user : dataList) {
-          if (loadedUser.equals(user.getName())) {
-            user.addPolicy(LIFE);
-            MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "Travel");
-          }
-        }
-      }
-    }
-
-  }
-
-  public void printProfile() {
-    // It prints all of the elements in the arraylist
-    // It also check if the user is equal to loadedUser or not and print out the message
-    for (int i = 0; i < dataList.size(); i++) {
-      Person name = dataList.get(i);
-      if (name.getName().equals(loadedUser)) {
-        System.out.print(" *** " + Integer.toString(i + 1) + ": ");
-        name.printDetails();
-      } else {
-        System.out.print(" " + Integer.toString(i + 1) + ": ");
-        name.printDetails();
-      }
-    }
-  }
-
   public boolean checkuser(String fixedName) {
     // It check the user's name whether its already in the arraylist or not
     for (Person user : dataList) {
@@ -182,6 +120,107 @@ public class InsuranceSystem {
       }
     } catch (Exception e) {
       return false;
+    }
+  }
+
+  public ArrayList<Policy> policyListOfUser = new ArrayList<>();
+
+  public void createPolicy(PolicyType type, String []options) {
+    // It create a new policy and check errors
+    if (loadedUser == null) {
+      MessageCli.NO_PROFILE_LOADED.printMessage();
+    } else {
+      if (type == PolicyType.HOME) {
+        String Sum_Insured = options[0];
+        String address = options[1];
+        String rental = options[2];
+        //Convert Sum_Insured to Integer
+        Integer Sum_Insured1 = Integer.parseInt(Sum_Insured);
+
+        Policy home = new Home(Sum_Insured1, address, rental);
+
+        for (Person user : dataList) {
+          if (user.getName().equals(loadedUser)) {
+            user.addPolicy(home);
+            MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "Home");
+          }
+        }
+
+      } else if (type == PolicyType.CAR) {
+        String Sum_Insured = options[0];
+        String address = options[1];
+        String rental = options[2];
+        String contents = options[3];
+
+        //Convert Sum_Insured to Integer
+        Integer Sum_Insured1 = Integer.parseInt(Sum_Insured);
+
+        Policy car = new Car(Sum_Insured1, address, rental, contents);
+
+        for (Person user : dataList) {
+          if (user.getName().equals(loadedUser)) {
+            user.addPolicy(car);
+            MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "Car");
+          }
+        }
+
+      } else if (type == PolicyType.LIFE) {
+        String Sum_Insured = options[0];
+
+        //Convert Sum_Insured to Integer
+        Integer Sum_Insured1 = Integer.parseInt(Sum_Insured);
+
+        Policy LIFE = new Life(Sum_Insured1);
+
+        for (Person user : dataList) {
+          if (user.getName().equals(loadedUser)) {
+            user.addPolicy(LIFE);
+            MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "LIFE");
+          }
+        }
+      }
+    }
+  }
+
+  public void calculateDiscount(Integer Sum_Insured1){
+    // It calculates the Discount depends on the number of policy that the user has
+
+    if(countPolicy() == 2){
+      // If the client has exactly 2 policies then the total base preimum is reduced by 10%
+      Sum_Insured1 = Sum_Insured1 - (Sum_Insured1 * 10 / 100);
+    }else if(countPolicy() > 3){
+      // If the client has 3 or more policies then the total base preimum is reduced by 20%
+      Sum_Insured1 = Sum_Insured1 - (Sum_Insured1 * 20 / 100);
+    }else {
+      // If the client has less then 2 policies then the total base preimum is not reduced
+    }
+  }
+
+  public int countPolicy(){
+    int count = 0;
+    // It counts how many policy does the user has
+    for (Policy policy : policyListOfUser) {
+        if (policy == null){
+
+        }else{
+            count++;
+        }
+    }
+    return count;
+  }
+
+  public void printProfile() {
+    // It prints all of the elements in the arraylist
+    // It also check if the user is equal to loadedUser or not and print out the message
+    for (int i = 0; i < dataList.size(); i++) {
+      Person name = dataList.get(i);
+      if (name.getName().equals(loadedUser)) {
+        System.out.print(" *** " + Integer.toString(i + 1) + ": ");
+        name.printDetails();
+      } else {
+        System.out.print(" " + Integer.toString(i + 1) + ": ");
+        name.printDetails();
+      }
     }
   }
 }

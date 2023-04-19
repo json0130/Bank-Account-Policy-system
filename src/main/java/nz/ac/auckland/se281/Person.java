@@ -4,14 +4,14 @@ public class Person {
   // instance fields
   // public string userName : it can be used by other classes straight away since it is public
   private String name; // private can not be used by other classes
-  private String age;
+  private static String age;
 
   public Person(String userName, String age) { // constructor : no return type needed
     name = userName;
-    this.age = age;
+    Person.age = age;
   }
 
-  public String getAge() {
+  public static String getAge() {
     return age; // Through public method the priavate 'age' can be used in other classes
   }
 
@@ -26,8 +26,6 @@ public class Person {
   public void addPolicy(Policy policy) {
     // add policy to the loaded profile
     
-
-
   }
 
 }
