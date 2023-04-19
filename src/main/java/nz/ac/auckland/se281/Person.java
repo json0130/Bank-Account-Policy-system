@@ -5,6 +5,7 @@ public class Person {
   // public string userName : it can be used by other classes straight away since it is public
   private String name; // private can not be used by other classes
   private static String age;
+  private static int count = 0;
 
   public Person(String userName, String age) { // constructor : no return type needed
     name = userName;
@@ -20,12 +21,15 @@ public class Person {
   }
 
   public void printDetails() {
-    System.out.println(name + ", " + age);
+    System.out.println(name + ", " + age + ", ");
+    // Convert count to string
+    String countString = Integer.toString(count);
+
+    MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(name, age, countString);
   }
 
   public void addPolicy(Policy policy) {
     // add policy to the loaded profile
-    
-  }
 
+  }
 }

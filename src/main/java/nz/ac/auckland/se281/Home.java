@@ -2,8 +2,8 @@ package nz.ac.auckland.se281;
 
 public class Home extends Policy {
 
-    public Home(Integer Sum_Insured, String address, String rental) {
-        super(Sum_Insured, address, rental);
+    public Home(Integer Sum_Insured, String address, Boolean rental1) {
+        super(Sum_Insured, address, rental1);
     }
 
     @Override

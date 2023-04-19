@@ -26,6 +26,8 @@ public class InsuranceSystem {
   // ArrayList that stores class person
 
   public String loadedUser = null;
+  public int basePremium = 0;
+  public int count = 0;
 
   public void createNewProfile(String name, String age) {
     // this method create a new profile and check errors
@@ -125,7 +127,7 @@ public class InsuranceSystem {
 
   public ArrayList<Policy> policyListOfUser = new ArrayList<>();
 
-  public void createPolicy(PolicyType type, String []options) {
+  public void createPolicy(PolicyType type, String[] options) {
     // It create a new policy and check errors
     if (loadedUser == null) {
       MessageCli.NO_PROFILE_LOADED.printMessage();
@@ -134,14 +136,17 @@ public class InsuranceSystem {
         String Sum_Insured = options[0];
         String address = options[1];
         String rental = options[2];
-        //Convert Sum_Insured to Integer
+        // Convert Sum_Insured to Integer
         Integer Sum_Insured1 = Integer.parseInt(Sum_Insured);
+        // Convert rental to Boolean
+        Boolean rental1 = Boolean.parseBoolean(rental);
 
-        Policy home = new Home(Sum_Insured1, address, rental);
+        Policy home = new Home(Sum_Insured1, address, rental1);
 
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
             user.addPolicy(home);
+            policyListOfUser.add(home);
             MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "Home");
           }
         }
@@ -152,14 +157,15 @@ public class InsuranceSystem {
         String rental = options[2];
         String contents = options[3];
 
-        //Convert Sum_Insured to Integer
+        // Convert Sum_Insured to Integer
         Integer Sum_Insured1 = Integer.parseInt(Sum_Insured);
 
-        Policy car = new Car(Sum_Insured1, address, rental, contents);
+        Policy Car = new Car(Sum_Insured1, address, rental, contents);
 
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
-            user.addPolicy(car);
+            user.addPolicy(Car);
+            policyListOfUser.add(Car);
             MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "Car");
           }
         }
@@ -167,14 +173,15 @@ public class InsuranceSystem {
       } else if (type == PolicyType.LIFE) {
         String Sum_Insured = options[0];
 
-        //Convert Sum_Insured to Integer
+        // Convert Sum_Insured to Integer
         Integer Sum_Insured1 = Integer.parseInt(Sum_Insured);
 
-        Policy LIFE = new Life(Sum_Insured1);
+        Policy Life = new Life(Sum_Insured1);
 
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
-            user.addPolicy(LIFE);
+            user.addPolicy(Life);
+            policyListOfUser.add(Life);
             MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "LIFE");
           }
         }
@@ -182,31 +189,35 @@ public class InsuranceSystem {
     }
   }
 
-  public void calculateDiscount(Integer Sum_Insured1){
+  public void calculateDiscount(Integer Sum_Insured1) {
     // It calculates the Discount depends on the number of policy that the user has
 
-    if(countPolicy() == 2){
+    if (countPolicy() == 2) {
       // If the client has exactly 2 policies then the total base preimum is reduced by 10%
       Sum_Insured1 = Sum_Insured1 - (Sum_Insured1 * 10 / 100);
-    }else if(countPolicy() > 3){
+    } else if (countPolicy() > 3) {
       // If the client has 3 or more policies then the total base preimum is reduced by 20%
       Sum_Insured1 = Sum_Insured1 - (Sum_Insured1 * 20 / 100);
-    }else {
+    } else {
       // If the client has less then 2 policies then the total base preimum is not reduced
     }
   }
 
-  public int countPolicy(){
-    int count = 0;
+  public int countPolicy() {
     // It counts how many policy does the user has
     for (Policy policy : policyListOfUser) {
-        if (policy == null){
+      if (policy == null) {
 
-        }else{
-            count++;
-        }
+      } else {
+        count++;
+      }
     }
     return count;
+  }
+
+  private int calculatetotalPremium(Policy policy) {
+
+    return basePremium;
   }
 
   public void printProfile() {

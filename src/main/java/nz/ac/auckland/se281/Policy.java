@@ -16,7 +16,7 @@ public abstract class Policy {
 
   public Policy(Integer Sum_Insured) {}
 
-  public Policy(Integer Sum_Insured, String address, String rental) {}
+  public Policy(Integer Sum_Insured, String address, Boolean rental2) {}
 
   public Integer getSum_Insured() {
     return Sum_Insured;
@@ -31,4 +31,5 @@ public abstract class Policy {
   }
 
   public abstract void calculatePremium();
+
 }
