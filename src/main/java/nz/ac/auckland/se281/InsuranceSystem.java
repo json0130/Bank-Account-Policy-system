@@ -135,11 +135,10 @@ public class InsuranceSystem {
         String address = options[1];
         String rental = options[2];
         // Convert Sum_Insured to Integer
-        Integer Sum_Insured1 = Integer.parseInt(Sum_Insured);
+        Integer sum_InsuredInteger = Integer.parseInt(Sum_Insured);
         // Convert rental to Boolean
-        Boolean rental1 = Boolean.parseBoolean(rental);
-
-        Policy home = new Home(Sum_Insured1, address, rental1);
+        Boolean rentalBool = Boolean.parseBoolean(rental);
+        Policy home = new Home(sum_InsuredInteger, address, rentalBool);
 
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
@@ -153,11 +152,9 @@ public class InsuranceSystem {
         String address = options[1];
         String rental = options[2];
         String contents = options[3];
-
         // Convert Sum_Insured to Integer
-        Integer Sum_Insured1 = Integer.parseInt(Sum_Insured);
-
-        Policy Car = new Car(Sum_Insured1, address, rental, contents);
+        Integer sum_InsuredInteger = Integer.parseInt(Sum_Insured);
+        Policy Car = new Car(sum_InsuredInteger, address, rental, contents);
 
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
@@ -167,20 +164,23 @@ public class InsuranceSystem {
         }
 
       } else if (type == PolicyType.LIFE) {
-        String Sum_Insured = options[0];
-
-        // Convert Sum_Insured to Integer
-        Integer Sum_Insured1 = Integer.parseInt(Sum_Insured);
-
-        Policy Life = new Life(Sum_Insured1);
-
+        // Check if the user already has a life policy or not
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
-            user.addPolicy(Life);
-            MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "LIFE");
-          }
+              if (user.hasLifePolicy()){
+                MessageCli.ALREADY_HAS_LIFE_POLICY.printMessage(loadedUser);
+              } else {
+                String Sum_Insured = options[0];
+                // Convert Sum_Insured to Integer
+                Integer sum_InsuredInteger = Integer.parseInt(Sum_Insured);
+                Policy Life = new Life(sum_InsuredInteger);
+                user.addPolicy(Life);
+                MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "LIFE");
+              }
+            }
+          
         }
-      }
+      } 
     }
   }
 

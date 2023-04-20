@@ -7,6 +7,7 @@ public abstract class Policy {
   protected String address;
   protected String rental;
   public int basePremium;
+  public String basePremiumString;
 
   public Policy(Integer Sum_Insured, String address, String rental, String mechanical) {
     this.Sum_Insured = Sum_Insured;
@@ -25,6 +26,6 @@ public abstract class Policy {
 
   public abstract String getPolicyType();
 
-  public abstract void calculatePremium();
+  public abstract String calculatePremium();
 
 }

@@ -7,7 +7,7 @@ public class Life extends Policy {
     }
 
     @Override
-    public void calculatePremium() {
+    public String calculatePremium() {
         // Calcualte the premium for the Life
         // The base premium for a life policy is calculated as 1 + age/100 of the sum insured
         // The maximum age is 100 years old
@@ -20,7 +20,11 @@ public class Life extends Policy {
             basePremium = (int) (1 + (ageInt / 100) * Sum_Insured);
         } else {
             basePremium = (int) (1 + (100 / 100) * Sum_Insured);
-        }
+        }   
+        // Convert int to String
+        String basePremiumString = Integer.toString(basePremium);
+
+        return basePremiumString;
     }
 
     @Override

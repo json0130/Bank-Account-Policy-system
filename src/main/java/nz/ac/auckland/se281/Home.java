@@ -7,7 +7,7 @@ public class Home extends Policy {
     }
 
     @Override
-    public void calculatePremium() {
+    public String calculatePremium() {
         // Calcualte the premium for the home
         // If the home is rented then the premium is 2% of the sum insured
         // If the home is not rented then the premium is 1% of the sum insured
@@ -16,6 +16,11 @@ public class Home extends Policy {
         } else {
             basePremium = (int) (0.01 * Sum_Insured);
         }
+
+        // Convert int to String
+        basePremiumString = Integer.toString(basePremium);
+
+        return basePremiumString;
     }
 
     public boolean IsHomeRented() {

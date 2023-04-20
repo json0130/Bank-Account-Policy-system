@@ -11,7 +11,7 @@ public class Car extends Policy {
     }
 
     @Override
-    public void calculatePremium() {
+    public String calculatePremium() {
         // Calcualte the premium for the car
         // If the person age is less than 25 then the premium is 15% of the sum insured
         // If the person age is greater than 25 then the premium is 10% of the sum insured
@@ -36,6 +36,11 @@ public class Car extends Policy {
                 Sum_Insured = (int) (0.1 * Sum_Insured);
             }
         }
+
+        // Convert int to String
+        basePremiumString = Integer.toString(Sum_Insured);
+
+        return basePremiumString;
     }
 
     public boolean checkMechanical(String mechanical){

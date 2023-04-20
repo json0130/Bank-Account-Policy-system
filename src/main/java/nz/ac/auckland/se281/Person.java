@@ -75,7 +75,7 @@ public class Person {
                 + ", Sum Insured: $"
                 + policies.Sum_Insured
                 + ", Premium: $"
-                + policies.basePremium
+                + policies.basePremiumString
                 + " -> $"
                 + discount
                 + ")");
@@ -87,7 +87,7 @@ public class Person {
                 + ", Sum Insured: $"
                 + policies.Sum_Insured
                 + ", Premium: $"
-                + policies.basePremium
+                + policies.basePremiumString
                 + " -> $"
                 + discount
                 + ")");
@@ -97,7 +97,7 @@ public class Person {
             "\tLife Policy (Sum Insured: $"
                 + policies.Sum_Insured
                 + ", Premium: $"
-                + policies.basePremium
+                + policies.basePremiumString
                 + " -> $"
                 + discount
                 + ")");
@@ -113,4 +113,16 @@ public class Person {
     }
     return Integer.toString(totalInsured);
   }
+
+  public boolean hasLifePolicy() {
+  // It checks if the user has a life policy in the policy arraylist
+    for (Policy policies : policyListOfUser) {
+      if (policies.getPolicyType() == "Life") {
+        return true;
+      }
+    }
+    return false;
+  }
 }
+
+
