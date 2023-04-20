@@ -26,6 +26,7 @@ public class Person {
     String countString = Integer.toString(count);
 
     MessageCli.PRINT_DB_PROFILE_HEADER_LONG.printMessage(name, age, countString);
+    MessageCli.PRINT_DB_POLICY_COUNT.printMessage("1", "", ":");
   }
 
   public void addPolicy(Policy policy) {

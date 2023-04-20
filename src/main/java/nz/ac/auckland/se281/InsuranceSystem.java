@@ -215,6 +215,17 @@ public class InsuranceSystem {
     return count;
   }
 
+  public void printNumberOfPolicies() {
+    // It prints the number of policies that the user has
+    // Print policy if the user has only one policy and print policies if the user has more then one
+    // policy
+    if (countPolicy() == 1) {
+      System.out.print(Integer.toString(countPolicy()) + "policy");
+    } else {
+      System.out.print(Integer.toString(countPolicy()) + "policies");
+    }
+  }
+
   private int calculatetotalPremium(Policy policy) {
 
     return basePremium;
@@ -228,9 +239,11 @@ public class InsuranceSystem {
       if (name.getName().equals(loadedUser)) {
         System.out.print(" *** " + Integer.toString(i + 1) + ": ");
         name.printDetails();
+        printNumberOfPolicies();
       } else {
         System.out.print(" " + Integer.toString(i + 1) + ": ");
         name.printDetails();
+        printNumberOfPolicies();
       }
     }
   }
