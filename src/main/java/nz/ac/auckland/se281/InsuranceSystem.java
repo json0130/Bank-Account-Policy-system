@@ -189,19 +189,13 @@ public class InsuranceSystem {
     // It also check if the user is equal to loadedUser or not and print out the message
     for (int i = 0; i < dataList.size(); i++) {
       Person name = dataList.get(i);
-      if (name.getName().equals(loadedUser)) {
-        System.out.print(" *** " + Integer.toString(i + 1) + ": ");
-        name.printDetails();
-        name.printNumberOfPolicies();
-        name.printPolicies();
-        name.totalInsured();
-      } else {
-        System.out.print(" " + Integer.toString(i + 1) + ": ");
-        name.printDetails();
-        name.printNumberOfPolicies();
-        name.printPolicies();
-        name.totalInsured();
-      }
+      System.out.print(
+          (name.getName().equals(loadedUser))
+              ? (" *** " + Integer.toString(i + 1) + ": ")
+              : (" " + Integer.toString(i + 1) + ": "));
+      name.printDetails();
+      name.printNumberOfPolicies();
+      name.printPolicies();
     }
   }
 }

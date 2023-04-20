@@ -66,12 +66,11 @@ public class Person {
   public void printNumberOfPolicies() {
     // It prints the number of policies that the user has
     // Print policy if the user has only one policy and print policies if the user has more then one
-    // policy
-    if (countPolicy() == 1) {
-      System.out.print(Integer.toString(countPolicy()) + " policy for a total of $");
-    } else {
-      System.out.print(Integer.toString(countPolicy()) + " policies for a total of $");
-    }
+
+    System.out.println(
+        (countPolicy() == 1)
+            ? Integer.toString(countPolicy()) + " policy for a total of $" + totalInsured()
+            : Integer.toString(countPolicy()) + " policies for a total of $" + totalInsured());
   }
 
   public void printPolicies() {
@@ -117,15 +116,10 @@ public class Person {
 
   public String totalInsured() {
     // It calculate the total insured amount of the user
-    int total = 0;
-    for (Person user : dataList) {
-      if (user.getName().equals(loadedUser)) {
-        for (Policy policy : user.getPolicies()) {
-          total += policy.getSumInsured();
-        }
-      }
+    int totalInsured = 0;
+    for (Policy policies : policyListOfUser) {
+      totalInsured += policies.Sum_Insured;
     }
-    return Integer.toString(total);
+    return Integer.toString(totalInsured);
   }
-
 }
