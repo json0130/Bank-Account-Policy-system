@@ -167,8 +167,14 @@ public class InsuranceSystem {
         // Check if the user already has a life policy or not
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
-              if (user.hasLifePolicy()){
-                MessageCli.ALREADY_HAS_LIFE_POLICY.printMessage(loadedUser);
+            if (user.hasLifePolicy()) {
+              MessageCli.ALREADY_HAS_LIFE_POLICY.printMessage(loadedUser);
+            } else {
+              String age = Person.getAge();
+              int ageInt = Integer.parseInt(age);
+
+              if (ageInt > 100) {
+                MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(age, loadedUser);
               } else {
                 String Sum_Insured = options[0];
                 // Convert Sum_Insured to Integer
@@ -178,9 +184,9 @@ public class InsuranceSystem {
                 MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "LIFE");
               }
             }
-          
+          }
         }
-      } 
+      }
     }
   }
 
