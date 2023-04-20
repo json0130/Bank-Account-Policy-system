@@ -27,4 +27,9 @@ public class Home extends Policy {
             return false; // Base Premium = 1% of the Sum Insured
         }  
     }
+
+    @Override
+    public String getPolicyType() {
+        return "Home";
+    }
 }

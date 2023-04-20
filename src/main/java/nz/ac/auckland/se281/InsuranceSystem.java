@@ -22,7 +22,7 @@ public class InsuranceSystem {
     }
   }
 
-  private ArrayList<Person> dataList = new ArrayList<>();
+  public ArrayList<Person> dataList = new ArrayList<>();
   // ArrayList that stores class person
 
   public String loadedUser = null;
@@ -125,8 +125,6 @@ public class InsuranceSystem {
     }
   }
 
-  public ArrayList<Policy> policyListOfUser = new ArrayList<>();
-
   public void createPolicy(PolicyType type, String[] options) {
     // It create a new policy and check errors
     if (loadedUser == null) {
@@ -146,7 +144,6 @@ public class InsuranceSystem {
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
             user.addPolicy(home);
-            policyListOfUser.add(home);
             MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "Home");
           }
         }
@@ -165,7 +162,6 @@ public class InsuranceSystem {
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
             user.addPolicy(Car);
-            policyListOfUser.add(Car);
             MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "Car");
           }
         }
@@ -181,54 +177,11 @@ public class InsuranceSystem {
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
             user.addPolicy(Life);
-            policyListOfUser.add(Life);
             MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "LIFE");
           }
         }
       }
     }
-  }
-
-  public void calculateDiscount(Integer Sum_Insured1) {
-    // It calculates the Discount depends on the number of policy that the user has
-
-    if (countPolicy() == 2) {
-      // If the client has exactly 2 policies then the total base preimum is reduced by 10%
-      Sum_Insured1 = Sum_Insured1 - (Sum_Insured1 * 10 / 100);
-    } else if (countPolicy() > 3) {
-      // If the client has 3 or more policies then the total base preimum is reduced by 20%
-      Sum_Insured1 = Sum_Insured1 - (Sum_Insured1 * 20 / 100);
-    } else {
-      // If the client has less then 2 policies then the total base preimum is not reduced
-    }
-  }
-
-  public int countPolicy() {
-    // It counts how many policy does the user has
-    for (Policy policy : policyListOfUser) {
-      if (policy == null) {
-
-      } else {
-        count++;
-      }
-    }
-    return count;
-  }
-
-  public void printNumberOfPolicies() {
-    // It prints the number of policies that the user has
-    // Print policy if the user has only one policy and print policies if the user has more then one
-    // policy
-    if (countPolicy() == 1) {
-      System.out.print(Integer.toString(countPolicy()) + "policy");
-    } else {
-      System.out.print(Integer.toString(countPolicy()) + "policies");
-    }
-  }
-
-  private int calculatetotalPremium(Policy policy) {
-
-    return basePremium;
   }
 
   public void printProfile() {
@@ -239,11 +192,15 @@ public class InsuranceSystem {
       if (name.getName().equals(loadedUser)) {
         System.out.print(" *** " + Integer.toString(i + 1) + ": ");
         name.printDetails();
-        printNumberOfPolicies();
+        name.printNumberOfPolicies();
+        name.printPolicies();
+        name.totalInsured();
       } else {
         System.out.print(" " + Integer.toString(i + 1) + ": ");
         name.printDetails();
-        printNumberOfPolicies();
+        name.printNumberOfPolicies();
+        name.printPolicies();
+        name.totalInsured();
       }
     }
   }

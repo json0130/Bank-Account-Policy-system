@@ -22,4 +22,9 @@ public class Life extends Policy {
             basePremium = (int) (1 + (100 / 100) * Sum_Insured);
         }
     }
+
+    @Override
+    public String getPolicyType() {
+        return "Life";
+    }
 }

@@ -45,4 +45,9 @@ public class Car extends Policy {
             return false;
         }
     }
+
+    @Override
+    public String getPolicyType() {
+        return "Car";
+    }
 }

@@ -14,9 +14,14 @@ public abstract class Policy {
     this.rental = rental;
   }
 
-  public Policy(Integer Sum_Insured) {}
+  public Policy(Integer Sum_Insured) {
+    this.Sum_Insured = Sum_Insured;
+  }
 
-  public Policy(Integer Sum_Insured, String address, Boolean rental2) {}
+  public Policy(Integer Sum_Insured, String address, Boolean rental2) {
+    this.Sum_Insured = Sum_Insured;
+    this.address = address;
+  }
 
   public Integer getSum_Insured() {
     return Sum_Insured;
@@ -29,6 +34,8 @@ public abstract class Policy {
   public String getRental() {
     return rental;
   }
+
+  public abstract String getPolicyType();
 
   public abstract void calculatePremium();
 
