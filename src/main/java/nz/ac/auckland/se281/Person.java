@@ -6,8 +6,7 @@ public class Person {
   // instance fields
   // public string userName : it can be used by other classes straight away since it is public
   private String name; // private can not be used by other classes
-  private static String age;
-  private int count = 0;
+  private static String age; // static means that the variable is shared by all instances of the class
   private int discount = 0;
 
   // Create an instance of policy that stores all the policies of specific user and store this
@@ -40,10 +39,10 @@ public class Person {
   public void calculateDiscount(Integer Sum_Insured1) {
     // It calculates the Discount depends on the number of policy that the user has
 
-    if (countPolicy() == 2) {
+    if (policyListOfUser.size() == 2) {
       // If the client has exactly 2 policies then the total base preimum is reduced by 10%
       discount = Sum_Insured1 - (Sum_Insured1 * 10 / 100);
-    } else if (countPolicy() > 3) {
+    } else if (policyListOfUser.size() > 3) {
       // If the client has 3 or more policies then the total base preimum is reduced by 20%
       discount = Sum_Insured1 - (Sum_Insured1 * 20 / 100);
     } else {
@@ -51,26 +50,18 @@ public class Person {
     }
   }
 
-  public int countPolicy() {
-    // It counts how many policy does the user has
-    for (Policy policy : policyListOfUser) {
-      if (policy == null) {
-
-      } else {
-        count++;
-      }
-    }
-    return count;
-  }
-
   public void printNumberOfPolicies() {
     // It prints the number of policies that the user has
     // Print policy if the user has only one policy and print policies if the user has more then one
 
     System.out.println(
-        (countPolicy() == 1)
-            ? Integer.toString(countPolicy()) + " policy for a total of $" + totalInsured()
-            : Integer.toString(countPolicy()) + " policies for a total of $" + totalInsured());
+        (policyListOfUser.size() == 1)
+            ? Integer.toString(policyListOfUser.size())
+                + " policy for a total of $"
+                + totalInsured()
+            : Integer.toString(policyListOfUser.size())
+                + " policies for a total of $"
+                + totalInsured());
   }
 
   public void printPolicies() {

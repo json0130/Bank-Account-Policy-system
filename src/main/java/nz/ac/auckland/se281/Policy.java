@@ -23,18 +23,6 @@ public abstract class Policy {
     this.address = address;
   }
 
-  public Integer getSum_Insured() {
-    return Sum_Insured;
-  }
-
-  public String getAddress() {
-    return address;
-  }
-
-  public String getRental() {
-    return rental;
-  }
-
   public abstract String getPolicyType();
 
   public abstract void calculatePremium();
