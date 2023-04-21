@@ -28,6 +28,7 @@ public class InsuranceSystem {
   public String loadedUser = null;
   public int basePremium = 0;
   public int count = 0;
+  public int ageInt;
 
   public void createNewProfile(String name, String age) {
     // this method create a new profile and check errors
@@ -39,7 +40,7 @@ public class InsuranceSystem {
           < 3) { // Check the length of username (Needs to be greater then 2 character)
         MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(fixedName);
       } else {
-        if (checkage(fixedName, age) == true) {
+        if (checkage(age) == true) {
           dataList.add(user1); // Add Username and age to the arraylist
           MessageCli.PROFILE_CREATED.printMessage(fixedName, age);
         } else {
@@ -112,7 +113,7 @@ public class InsuranceSystem {
     return true;
   }
 
-  public boolean checkage(String fixedName, String age) {
+  public boolean checkage(String age) {
     // Check age to be positive interger.
     try {
       if (Integer.parseInt(age) > 0) {
@@ -128,7 +129,7 @@ public class InsuranceSystem {
   public void createPolicy(PolicyType type, String[] options) {
     // It create a new policy and check errors
     if (loadedUser == null) {
-      MessageCli.NO_PROFILE_LOADED.printMessage();
+      MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
     } else {
       if (type == PolicyType.HOME) {
         String Sum_Insured = options[0];
@@ -149,12 +150,12 @@ public class InsuranceSystem {
 
       } else if (type == PolicyType.CAR) {
         String Sum_Insured = options[0];
-        String address = options[1];
+        String make = options[1];
         String rental = options[2];
         String contents = options[3];
         // Convert Sum_Insured to Integer
         Integer sum_InsuredInteger = Integer.parseInt(Sum_Insured);
-        Policy Car = new Car(sum_InsuredInteger, address, rental, contents);
+        Policy Car = new Car(sum_InsuredInteger, make, rental, contents);
 
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
@@ -167,14 +168,14 @@ public class InsuranceSystem {
         // Check if the user already has a life policy or not
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
-            if (user.hasLifePolicy()) {
+            if (user.alreadyHaveLifePolicy()) {
               MessageCli.ALREADY_HAS_LIFE_POLICY.printMessage(loadedUser);
             } else {
-              String age = Person.getAge();
+              String age = user.getAge();
               int ageInt = Integer.parseInt(age);
 
               if (ageInt > 100) {
-                MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(age, loadedUser);
+                MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(loadedUser);
               } else {
                 String Sum_Insured = options[0];
                 // Convert Sum_Insured to Integer

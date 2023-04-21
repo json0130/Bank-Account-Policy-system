@@ -6,21 +6,21 @@ public class Person {
   // instance fields
   // public string userName : it can be used by other classes straight away since it is public
   private String name; // private can not be used by other classes
-  private static String age; // static means that the variable is shared by all instances of the class
-  private int discount = 0;
+  private String age; // static means that the variable is shared by all instances of the class
+  private String discountedPremiumString;
 
   // Create an instance of policy that stores all the policies of specific user and store this
   // instance inside the datalist arraylist
-  private ArrayList<Policy> policyListOfUser;
+  ArrayList<Policy> policyListOfUser;
 
   public Person(String userName, String age) { // constructor : no return type needed
     name = userName;
-    Person.age = age;
+    this.age = age;
     policyListOfUser = new ArrayList<Policy>();
   }
 
-  public static String getAge() {
-    return age; // Through public method the priavate 'age' can be used in other classes
+  public String getAge() {
+    return age;
   }
 
   public String getName() {
@@ -36,18 +36,47 @@ public class Person {
     policyListOfUser.add(policy);
   }
 
-  public void calculateDiscount(Integer Sum_Insured1) {
+  public String calculateDiscount() {
     // It calculates the Discount depends on the number of policy that the user has
+    // If the user has 2 policies then the discount is 10%
+    // If the user has more then 3 policies then the discount is 20%
+    // Do not change the arraylist to statics
+    int basePremium = Integer.parseInt(policyListOfUser.get(0).calculatePremium());
 
     if (policyListOfUser.size() == 2) {
-      // If the client has exactly 2 policies then the total base preimum is reduced by 10%
-      discount = Sum_Insured1 - (Sum_Insured1 * 10 / 100);
+      // Calculate the discount
+      int discount = (int) (basePremium * 0.1);
+      // Calculate the premium after discount
+      int premiumAfterDiscount = basePremium - discount;
+      // Convert int to String
+      discountedPremiumString = Integer.toString(premiumAfterDiscount);
+      return discountedPremiumString;
+
     } else if (policyListOfUser.size() > 3) {
-      // If the client has 3 or more policies then the total base preimum is reduced by 20%
-      discount = Sum_Insured1 - (Sum_Insured1 * 20 / 100);
-    } else {
-      // If the client has less then 2 policies then the total base preimum is not reduced
+      // Calculate the discount
+      int discount = (int) (basePremium * 0.2);
+      // Calculate the premium after discount
+      int premiumAfterDiscount = -discount;
+      // Convert int to String
+      discountedPremiumString = Integer.toString(premiumAfterDiscount);
+      // Add discounted premium to the policyListOfUser
+      return discountedPremiumString;
     }
+    // Convert int to String
+    String basePremiumString = Integer.toString(basePremium);
+
+    return basePremiumString;
+  }
+
+  public int totalInsured() {
+    // It calculates the total sum insured of the user
+    int totalSumInsured = 0;
+    // for (Policy policies : policyListOfUser) {
+    //   // Convert String to int
+    //   int discountedPremium = Integer.parseInt(policies.calculateDiscount());
+    //   totalSumInsured += discountedPremium;
+    // }
+    return totalSumInsured;
   }
 
   public void printNumberOfPolicies() {
@@ -75,21 +104,22 @@ public class Person {
                 + ", Sum Insured: $"
                 + policies.Sum_Insured
                 + ", Premium: $"
-                + policies.basePremiumString
+                + policies.calculatePremium()
                 + " -> $"
-                + discount
+                + calculateDiscount()
                 + ")");
 
       } else if (policies.getPolicyType() == "Car") {
         System.out.println(
             "\tCar Policy ("
-                + policies.address
+                + policies.make
                 + ", Sum Insured: $"
                 + policies.Sum_Insured
                 + ", Premium: $"
-                + policies.basePremiumString
+                // print the basepremium of the car policy
+                + policies.calculatePremium()
                 + " -> $"
-                + discount
+                + calculateDiscount()
                 + ")");
 
       } else if (policies.getPolicyType() == "Life") {
@@ -97,25 +127,16 @@ public class Person {
             "\tLife Policy (Sum Insured: $"
                 + policies.Sum_Insured
                 + ", Premium: $"
-                + policies.basePremiumString
+                + policies.calculatePremium()
                 + " -> $"
-                + discount
+                + calculateDiscount()
                 + ")");
       }
     }
   }
 
-  public String totalInsured() {
-    // It calculate the total insured amount of the user
-    int totalInsured = 0;
-    for (Policy policies : policyListOfUser) {
-      totalInsured += policies.Sum_Insured;
-    }
-    return Integer.toString(totalInsured);
-  }
-
-  public boolean hasLifePolicy() {
-  // It checks if the user has a life policy in the policy arraylist
+  public boolean alreadyHaveLifePolicy() {
+    // It checks if the user has a life policy in the policy arraylist
     for (Policy policies : policyListOfUser) {
       if (policies.getPolicyType() == "Life") {
         return true;
@@ -124,5 +145,3 @@ public class Person {
     return false;
   }
 }
-
-

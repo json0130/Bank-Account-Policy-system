@@ -1,5 +1,6 @@
 package nz.ac.auckland.se281;
 
+
 public abstract class Policy {
 
   // instance fields
@@ -8,6 +9,8 @@ public abstract class Policy {
   protected String rental;
   public int basePremium;
   public String basePremiumString;
+  protected int ageInt;
+  protected String make;
 
   public Policy(Integer Sum_Insured, String address, String rental, String mechanical) {
     this.Sum_Insured = Sum_Insured;
