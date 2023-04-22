@@ -164,8 +164,8 @@ public class InsuranceSystem {
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
             String age = user.getAge();
-            Policy Car = new Car(sumInsuredInteger, make, lisence, mechanical, age);
-            user.addPolicy(Car);
+            Policy car = new Car(sumInsuredInteger, make, lisence, mechanical, age);
+            user.addPolicy(car);
             MessageCli.NEW_POLICY_CREATED.printMessage("car", loadedUser);
           }
         }
