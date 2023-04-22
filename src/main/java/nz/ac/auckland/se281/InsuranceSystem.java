@@ -136,15 +136,15 @@ public class InsuranceSystem {
       MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
     } else {
       if (type == PolicyType.HOME) {
-        String sum_Insured = options[0];
+        String sumInsured = options[0];
         String address = options[1];
         String rental = options[2];
         // Convert Sum_Insured to Integer
-        Integer sum_InsuredInteger = Integer.parseInt(sum_Insured);
+        Integer sumInsuredInteger = Integer.parseInt(sumInsured);
         // Convert rental to boolean
         // boolean rental2 = Boolean.parseBoolean(rental);
 
-        Policy home = new Home(sum_InsuredInteger, address, rental);
+        Policy home = new Home(sumInsuredInteger, address, rental);
 
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
@@ -154,17 +154,17 @@ public class InsuranceSystem {
         }
 
       } else if (type == PolicyType.CAR) {
-        String sum_Insured = options[0];
+        String sumInsured = options[0];
         String make = options[1];
         String lisence = options[2];
         String mechanical = options[3];
         // Convert Sum_Insured to Integer
-        Integer sum_InsuredInteger = Integer.parseInt(sum_Insured);
+        Integer sumInsuredInteger = Integer.parseInt(sumInsured);
 
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
             String age = user.getAge();
-            Policy Car = new Car(sum_InsuredInteger, make, lisence, mechanical, age);
+            Policy Car = new Car(sumInsuredInteger, make, lisence, mechanical, age);
             user.addPolicy(Car);
             MessageCli.NEW_POLICY_CREATED.printMessage("car", loadedUser);
           }
@@ -183,10 +183,10 @@ public class InsuranceSystem {
               if (ageInt > 100) {
                 MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(loadedUser);
               } else {
-                String sum_Insured = options[0];
+                String sumInsured = options[0];
                 // Convert Sum_Insured to Integer
-                Integer sum_InsuredInteger = Integer.parseInt(sum_Insured);
-                Policy life = new Life(sum_InsuredInteger, ageInt);
+                Integer sumInsuredInteger = Integer.parseInt(sumInsured);
+                Policy life = new Life(sumInsuredInteger, ageInt);
                 user.addPolicy(life);
                 MessageCli.NEW_POLICY_CREATED.printMessage("life", loadedUser);
               }

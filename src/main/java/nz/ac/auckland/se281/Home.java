@@ -2,12 +2,12 @@ package nz.ac.auckland.se281;
 
 public class Home extends Policy {
 
-  private Integer Sum_Insured;
+  private Integer sumInsured;
   private String rental;
 
-  public Home(Integer Sum_Insured, String address, String rental) {
-    super(Sum_Insured, address, rental);
-    this.Sum_Insured = Sum_Insured;
+  public Home(Integer sumInsured, String address, String rental) {
+    super(sumInsured, address, rental);
+    this.sumInsured = sumInsured;
     this.rental = rental;
     calculatePremium();
   }
@@ -18,9 +18,9 @@ public class Home extends Policy {
     // If the home is rented then the premium is 2% of the sum insured
     // If the home is not rented then the premium is 1% of the sum insured
     if (isHomeRented() == true) {
-      setBasePremium(0.02 * Sum_Insured);
+      setBasePremium(0.02 * sumInsured);
     } else {
-      setBasePremium(0.01 * Sum_Insured);
+      setBasePremium(0.01 * sumInsured);
     }
   }
 

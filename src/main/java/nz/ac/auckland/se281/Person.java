@@ -68,7 +68,7 @@ public class Person {
             "\tHome Policy ("
                 + policies.address
                 + ", Sum Insured: $"
-                + policies.sum_Insured
+                + policies.sumInsured
                 + ", Premium: $"
                 + // covert the basepremium to string
                 Integer.toString(basePremium)
@@ -83,7 +83,7 @@ public class Person {
             "\tCar Policy ("
                 + policies.make
                 + ", Sum Insured: $"
-                + policies.sum_Insured
+                + policies.sumInsured
                 + ", Premium: $"
                 // print the basepremium of the car policy
                 + Integer.toString(basePremium)
@@ -95,7 +95,7 @@ public class Person {
         int basePremium = (int) (policies.getBasePremium());
         System.out.println(
             "\tLife Policy (Sum Insured: $"
-                + policies.sum_Insured
+                + policies.sumInsured
                 + ", Premium: $"
                 + Integer.toString(basePremium)
                 + " -> $"

@@ -2,11 +2,11 @@ package nz.ac.auckland.se281;
 
 public class Life extends Policy {
 
-  private Integer sum_Insured;
+  private Integer sumInsured;
 
-  public Life(Integer sum_Insured, int ageInt) {
-    super(sum_Insured, ageInt);
-    this.sum_Insured = sum_Insured;
+  public Life(Integer sumInsured, int ageInt) {
+    super(sumInsured, ageInt);
+    this.sumInsured = sumInsured;
     this.ageInt = ageInt;
     calculatePremium();
   }
@@ -18,7 +18,7 @@ public class Life extends Policy {
     // Get the age of the person from the Person class
     // Convert ageInt to double
     double ageInt = this.ageInt;
-    setBasePremium(sum_Insured * (1 + ageInt / 100) / 100);
+    setBasePremium(sumInsured * (1 + ageInt / 100) / 100);
   }
 
   @Override
