@@ -4,19 +4,17 @@ import java.util.ArrayList;
 
 public class Person {
   // instance fields
-  // public string userName : it can be used by other classes straight away since it is public
   private String name; // private can not be used by other classes
-  private String age; // static means that the variable is shared by all instances of the class
-  private String discountedPremiumString;
+  public String age;
 
   // Create an instance of policy that stores all the policies of specific user and store this
   // instance inside the datalist arraylist
-  ArrayList<Policy> policyListOfUser;
+  ArrayList<Policy> policyListOfUser = new ArrayList<Policy>();
 
   public Person(String userName, String age) { // constructor : no return type needed
     name = userName;
     this.age = age;
-    policyListOfUser = new ArrayList<Policy>();
+    // policyListOfUser = new ArrayList<Policy>();
   }
 
   public String getAge() {
@@ -36,46 +34,13 @@ public class Person {
     policyListOfUser.add(policy);
   }
 
-  public String calculateDiscount() {
-    // It calculates the Discount depends on the number of policy that the user has
-    // If the user has 2 policies then the discount is 10%
-    // If the user has more then 3 policies then the discount is 20%
-    // Do not change the arraylist to statics
-    int basePremium = Integer.parseInt(policyListOfUser.get(0).calculatePremium());
-
-    if (policyListOfUser.size() == 2) {
-      // Calculate the discount
-      int discount = (int) (basePremium * 0.1);
-      // Calculate the premium after discount
-      int premiumAfterDiscount = basePremium - discount;
-      // Convert int to String
-      discountedPremiumString = Integer.toString(premiumAfterDiscount);
-      return discountedPremiumString;
-
-    } else if (policyListOfUser.size() > 3) {
-      // Calculate the discount
-      int discount = (int) (basePremium * 0.2);
-      // Calculate the premium after discount
-      int premiumAfterDiscount = -discount;
-      // Convert int to String
-      discountedPremiumString = Integer.toString(premiumAfterDiscount);
-      // Add discounted premium to the policyListOfUser
-      return discountedPremiumString;
-    }
-    // Convert int to String
-    String basePremiumString = Integer.toString(basePremium);
-
-    return basePremiumString;
-  }
-
   public int totalInsured() {
+    calculateDiscount();
     // It calculates the total sum insured of the user
     int totalSumInsured = 0;
-    // for (Policy policies : policyListOfUser) {
-    //   // Convert String to int
-    //   int discountedPremium = Integer.parseInt(policies.calculateDiscount());
-    //   totalSumInsured += discountedPremium;
-    // }
+    for (Policy policies : policyListOfUser) {
+      totalSumInsured += policies.getDiscountedPremium();
+    }
     return totalSumInsured;
   }
 
@@ -87,10 +52,10 @@ public class Person {
         (policyListOfUser.size() == 1)
             ? Integer.toString(policyListOfUser.size())
                 + " policy for a total of $"
-                + totalInsured()
+                + Integer.toString(totalInsured())
             : Integer.toString(policyListOfUser.size())
                 + " policies for a total of $"
-                + totalInsured());
+                + Integer.toString(totalInsured()));
   }
 
   public void printPolicies() {
@@ -98,18 +63,22 @@ public class Person {
     for (Policy policies : policyListOfUser) {
       // check the type of the policy and print the policy
       if (policies.getPolicyType() == "Home") {
+        int basePremium = (int) (policies.getBasePremium());
         System.out.println(
             "\tHome Policy ("
                 + policies.address
                 + ", Sum Insured: $"
                 + policies.Sum_Insured
                 + ", Premium: $"
-                + policies.calculatePremium()
+                + // covert the basepremium to string
+                Integer.toString(basePremium)
                 + " -> $"
-                + calculateDiscount()
+                + // Convert the discounted premium to integer
+                Integer.toString((int) policies.getDiscountedPremium())
                 + ")");
 
       } else if (policies.getPolicyType() == "Car") {
+        int basePremium = (int) (policies.getBasePremium());
         System.out.println(
             "\tCar Policy ("
                 + policies.make
@@ -117,20 +86,40 @@ public class Person {
                 + policies.Sum_Insured
                 + ", Premium: $"
                 // print the basepremium of the car policy
-                + policies.calculatePremium()
+                + Integer.toString(basePremium)
                 + " -> $"
-                + calculateDiscount()
+                + Integer.toString((int) policies.getDiscountedPremium())
                 + ")");
 
       } else if (policies.getPolicyType() == "Life") {
+        int basePremium = (int) (policies.getBasePremium());
         System.out.println(
             "\tLife Policy (Sum Insured: $"
                 + policies.Sum_Insured
                 + ", Premium: $"
-                + policies.calculatePremium()
+                + Integer.toString(basePremium)
                 + " -> $"
-                + calculateDiscount()
+                + Integer.toString((int) policies.getDiscountedPremium())
                 + ")");
+      }
+    }
+  }
+
+  public void calculateDiscount() {
+    // It calculates the Discount depends on the number of policy that the user has
+    // If the user has 2 policies then the discount is 10%
+    // If the user has more then 3 policies then the discount is 20%
+    if (policyListOfUser.size() == 2) {
+      for (Policy policies : policyListOfUser) {
+        policies.setDiscountedPremium(policies.getBasePremium() * (1 - 0.1));
+      }
+    } else if (policyListOfUser.size() > 2) {
+      for (Policy policies : policyListOfUser) {
+        policies.setDiscountedPremium(policies.getBasePremium() * 0.8);
+      }
+    } else {
+      for (Policy policies : policyListOfUser) {
+        policies.setDiscountedPremium(policies.getBasePremium());
       }
     }
   }

@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import nz.ac.auckland.se281.Main.PolicyType;
 
 public class InsuranceSystem {
-  public InsuranceSystem() {
-    // Only this constructor can be used (if you need to initialise fields).
+  // public InsuranceSystem() {
+  // Only this constructor can be used (if you need to initialise fields).
 
-  }
+  // }
 
   public void printDatabase() {
     // It prints out the database
@@ -137,30 +137,32 @@ public class InsuranceSystem {
         String rental = options[2];
         // Convert Sum_Insured to Integer
         Integer sum_InsuredInteger = Integer.parseInt(Sum_Insured);
-        // Convert rental to Boolean
-        Boolean rentalBool = Boolean.parseBoolean(rental);
-        Policy home = new Home(sum_InsuredInteger, address, rentalBool);
+        // Convert rental to boolean
+        // boolean rental2 = Boolean.parseBoolean(rental);
+
+        Policy home = new Home(sum_InsuredInteger, address, rental);
 
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
             user.addPolicy(home);
-            MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "Home");
+            MessageCli.NEW_POLICY_CREATED.printMessage("home", loadedUser);
           }
         }
 
       } else if (type == PolicyType.CAR) {
         String Sum_Insured = options[0];
         String make = options[1];
-        String rental = options[2];
-        String contents = options[3];
+        String lisence = options[2];
+        String mechanical = options[3];
         // Convert Sum_Insured to Integer
         Integer sum_InsuredInteger = Integer.parseInt(Sum_Insured);
-        Policy Car = new Car(sum_InsuredInteger, make, rental, contents);
 
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
+            String age = user.getAge();
+            Policy Car = new Car(sum_InsuredInteger, make, lisence, mechanical, age);
             user.addPolicy(Car);
-            MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "Car");
+            MessageCli.NEW_POLICY_CREATED.printMessage("car", loadedUser);
           }
         }
 
@@ -180,9 +182,9 @@ public class InsuranceSystem {
                 String Sum_Insured = options[0];
                 // Convert Sum_Insured to Integer
                 Integer sum_InsuredInteger = Integer.parseInt(Sum_Insured);
-                Policy Life = new Life(sum_InsuredInteger);
+                Policy Life = new Life(sum_InsuredInteger,ageInt);
                 user.addPolicy(Life);
-                MessageCli.NEW_POLICY_CREATED.printMessage(loadedUser, "LIFE");
+                MessageCli.NEW_POLICY_CREATED.printMessage("life", loadedUser);
               }
             }
           }

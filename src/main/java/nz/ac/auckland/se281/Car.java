@@ -1,16 +1,19 @@
 package nz.ac.auckland.se281;
 
 public class Car extends Policy {
-
-  private String mechanical;
   private Integer Sum_Insured;
+  private String mechanical;
 
-  public Car(Integer Sum_Insured, String make, String lisence, String mechanical) {
-    super(Sum_Insured, make, lisence, mechanical);
+  public Car(Integer Sum_Insured, String make, String lisence, String mechanical, String age) {
+    super(Sum_Insured, make, lisence, mechanical, age);
+    this.Sum_Insured = Sum_Insured;
+    this.mechanical = mechanical;
+    this.age = age;
+    calculatePremium();
   }
 
   @Override
-  public String calculatePremium() {
+  public void calculatePremium() {
     // Calcualte the premium for the car
     // If the person age is less than 25 then the premium is 15% of the sum insured
     // If the person age is greater than 25 then the premium is 10% of the sum insured
@@ -18,27 +21,25 @@ public class Car extends Policy {
     // $80 (regardless of age)
     // If the car is not to be covered for mechanical breakdown then the premium will not increase
     // (regardless of age)
+    int ageInt = Integer.parseInt(age);
 
     if (ageInt < 25) {
-      if (checkMechanical(mechanical) == true) {
-        Sum_Insured = (int) (0.15 * (Sum_Insured) + 80);
+      if (checkMechanical() == true) {
+        basePremium = (int) (0.15 * (Sum_Insured) + 80);
       } else {
-        Sum_Insured = (int) (0.15 * Sum_Insured);
+        basePremium = (int) (0.15 * Sum_Insured);
       }
     } else {
-      if (checkMechanical(mechanical) == true) {
-        Sum_Insured = (int) (0.1 * Sum_Insured + 80);
+      if (checkMechanical() == true) {
+        basePremium = (int) (0.1 * Sum_Insured + 80);
       } else {
-        Sum_Insured = (int) (0.1 * Sum_Insured);
+        basePremium = (int) (0.1 * Sum_Insured);
       }
     }
-
-    // Convert int to String
-    basePremiumString = Integer.toString(Sum_Insured);
-    return basePremiumString;
+    setBasePremium(basePremium);
   }
 
-  public boolean checkMechanical(String mechanical) {
+  public boolean checkMechanical() {
     if (mechanical.equals("yes")) {
       return true;
     } else {
