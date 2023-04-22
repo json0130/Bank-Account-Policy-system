@@ -35,20 +35,24 @@ public class InsuranceSystem {
     String fixedName = name.substring(0, 1).toUpperCase() + name.substring(1).toLowerCase();
     Person user1 = new Person(fixedName, age);
 
-    if (checkuser(fixedName) == true) {
-      if (fixedName.length()
-          < 3) { // Check the length of username (Needs to be greater then 2 character)
-        MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(fixedName);
-      } else {
-        if (checkage(age) == true) {
-          dataList.add(user1); // Add Username and age to the arraylist
-          MessageCli.PROFILE_CREATED.printMessage(fixedName, age);
-        } else {
-          MessageCli.INVALID_AGE.printMessage(age, fixedName);
-        }
-      }
+    if (loadedUser != null) {
+      MessageCli.CANNOT_CREATE_WHILE_LOADED.printMessage(loadedUser);
     } else {
-      MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(fixedName);
+      if (checkuser(fixedName) == true) {
+        if (fixedName.length()
+            < 3) { // Check the length of username (Needs to be greater then 2 character)
+          MessageCli.INVALID_USERNAME_TOO_SHORT.printMessage(fixedName);
+        } else {
+          if (checkage(age) == true) {
+            dataList.add(user1); // Add Username and age to the arraylist
+            MessageCli.PROFILE_CREATED.printMessage(fixedName, age);
+          } else {
+            MessageCli.INVALID_AGE.printMessage(age, fixedName);
+          }
+        }
+      } else {
+        MessageCli.INVALID_USERNAME_NOT_UNIQUE.printMessage(fixedName);
+      }
     }
   }
 
@@ -132,11 +136,11 @@ public class InsuranceSystem {
       MessageCli.NO_PROFILE_FOUND_TO_CREATE_POLICY.printMessage();
     } else {
       if (type == PolicyType.HOME) {
-        String Sum_Insured = options[0];
+        String sum_Insured = options[0];
         String address = options[1];
         String rental = options[2];
         // Convert Sum_Insured to Integer
-        Integer sum_InsuredInteger = Integer.parseInt(Sum_Insured);
+        Integer sum_InsuredInteger = Integer.parseInt(sum_Insured);
         // Convert rental to boolean
         // boolean rental2 = Boolean.parseBoolean(rental);
 
@@ -150,12 +154,12 @@ public class InsuranceSystem {
         }
 
       } else if (type == PolicyType.CAR) {
-        String Sum_Insured = options[0];
+        String sum_Insured = options[0];
         String make = options[1];
         String lisence = options[2];
         String mechanical = options[3];
         // Convert Sum_Insured to Integer
-        Integer sum_InsuredInteger = Integer.parseInt(Sum_Insured);
+        Integer sum_InsuredInteger = Integer.parseInt(sum_Insured);
 
         for (Person user : dataList) {
           if (user.getName().equals(loadedUser)) {
@@ -179,11 +183,11 @@ public class InsuranceSystem {
               if (ageInt > 100) {
                 MessageCli.OVER_AGE_LIMIT_LIFE_POLICY.printMessage(loadedUser);
               } else {
-                String Sum_Insured = options[0];
+                String sum_Insured = options[0];
                 // Convert Sum_Insured to Integer
-                Integer sum_InsuredInteger = Integer.parseInt(Sum_Insured);
-                Policy Life = new Life(sum_InsuredInteger,ageInt);
-                user.addPolicy(Life);
+                Integer sum_InsuredInteger = Integer.parseInt(sum_Insured);
+                Policy life = new Life(sum_InsuredInteger, ageInt);
+                user.addPolicy(life);
                 MessageCli.NEW_POLICY_CREATED.printMessage("life", loadedUser);
               }
             }

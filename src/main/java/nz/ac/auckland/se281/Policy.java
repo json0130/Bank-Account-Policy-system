@@ -1,10 +1,9 @@
 package nz.ac.auckland.se281;
 
-
 public abstract class Policy {
 
   // instance fields
-  protected Integer Sum_Insured;
+  protected Integer sum_Insured;
   protected String address;
   protected String rental;
   protected String mechanical;
@@ -15,21 +14,21 @@ public abstract class Policy {
   protected String age;
   protected Integer ageInt;
 
-  public Policy(Integer Sum_Insured, String make, String lisence, String mechanical, String age) {
-    this.Sum_Insured = Sum_Insured;
+  public Policy(Integer sum_Insured, String make, String lisence, String mechanical, String age) {
+    this.sum_Insured = sum_Insured;
     this.make = make;
     this.lisence = lisence;
     this.mechanical = mechanical;
     this.age = age;
   }
 
-  public Policy(Integer Sum_Insured, Integer ageInt) {
-    this.Sum_Insured = Sum_Insured;
+  public Policy(Integer sum_Insured, Integer ageInt) {
+    this.sum_Insured = sum_Insured;
     this.ageInt = ageInt;
   }
 
-  public Policy(Integer Sum_Insured, String address, String rental) {
-    this.Sum_Insured = Sum_Insured;
+  public Policy(Integer sum_Insured, String address, String rental) {
+    this.sum_Insured = sum_Insured;
     this.address = address;
     this.rental = rental;
   }
@@ -42,8 +41,8 @@ public abstract class Policy {
     this.basePremium = basePremium;
   }
 
-  public void setDiscountedPremium(double d) {
-    this.discountedPremium = d;
+  public void setDiscountedPremium(double discountedPremium) {
+    this.discountedPremium = discountedPremium;
   }
 
   public double getDiscountedPremium() {

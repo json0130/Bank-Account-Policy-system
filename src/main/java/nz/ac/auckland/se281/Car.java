@@ -1,12 +1,12 @@
 package nz.ac.auckland.se281;
 
 public class Car extends Policy {
-  private Integer Sum_Insured;
+  private Integer sum_Insured;
   private String mechanical;
 
-  public Car(Integer Sum_Insured, String make, String lisence, String mechanical, String age) {
-    super(Sum_Insured, make, lisence, mechanical, age);
-    this.Sum_Insured = Sum_Insured;
+  public Car(Integer sum_Insured, String make, String lisence, String mechanical, String age) {
+    super(sum_Insured, make, lisence, mechanical, age);
+    this.sum_Insured = sum_Insured;
     this.mechanical = mechanical;
     this.age = age;
     calculatePremium();
@@ -19,21 +19,19 @@ public class Car extends Policy {
     // If the person age is greater than 25 then the premium is 10% of the sum insured
     // If the car to be covered for mechanical breakdown then the premium will increase by further
     // $80 (regardless of age)
-    // If the car is not to be covered for mechanical breakdown then the premium will not increase
-    // (regardless of age)
     int ageInt = Integer.parseInt(age);
 
     if (ageInt < 25) {
       if (checkMechanical() == true) {
-        basePremium = (int) (0.15 * (Sum_Insured) + 80);
+        basePremium = ((0.15 * (sum_Insured)) + 80);
       } else {
-        basePremium = (int) (0.15 * Sum_Insured);
+        basePremium = (0.15 * sum_Insured);
       }
     } else {
       if (checkMechanical() == true) {
-        basePremium = (int) (0.1 * Sum_Insured + 80);
+        basePremium = ((0.1 * sum_Insured) + 80);
       } else {
-        basePremium = (int) (0.1 * Sum_Insured);
+        basePremium = (0.1 * sum_Insured);
       }
     }
     setBasePremium(basePremium);
