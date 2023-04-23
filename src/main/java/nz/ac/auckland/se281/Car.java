@@ -38,7 +38,7 @@ public class Car extends Policy {
   }
 
   public boolean checkMechanical() {
-    if (mechanical.equals("yes")) {
+    if ((mechanical.toLowerCase()).contains("y")) {
       return true;
     } else {
       return false;

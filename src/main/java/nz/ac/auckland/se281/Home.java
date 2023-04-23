@@ -27,7 +27,7 @@ public class Home extends Policy {
   public boolean isHomeRented() {
     // Method to check if the home is rented
     // If the home is rented then return true otherwise return false
-    if (rental.equals("yes")) {
+    if ((rental.toLowerCase()).contains("y")) {
       return true; // Base Premium = 2% of the Sum Insured
     } else {
       return false; // Base Premium = 1% of the Sum Insured
