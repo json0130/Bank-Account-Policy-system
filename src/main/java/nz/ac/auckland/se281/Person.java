@@ -17,12 +17,10 @@ public class Person {
   }
 
   public String getAge() {
-    // return the age of the user
     return age;
   }
 
   public String getName() {
-    // return the name of the user
     return name;
   }
 
