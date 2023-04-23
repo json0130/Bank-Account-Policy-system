@@ -14,18 +14,20 @@ public class Person {
   public Person(String userName, String age) { // constructor : no return type needed
     name = userName;
     this.age = age;
-    // policyListOfUser = new ArrayList<Policy>();
   }
 
   public String getAge() {
+    // return the age of the user
     return age;
   }
 
   public String getName() {
+    // return the name of the user
     return name;
   }
 
   public void printDetails() {
+    // Print the details of the user
     System.out.print(name + ", " + age + ", ");
   }
 
@@ -64,6 +66,7 @@ public class Person {
       // check the type of the policy and print the policy
       if (policies.getPolicyType() == "Home") {
         int basePremium = (int) (policies.getBasePremium());
+        // print the home policy
         System.out.println(
             "\tHome Policy ("
                 + policies.address

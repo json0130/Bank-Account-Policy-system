@@ -36,6 +36,7 @@ public class Home extends Policy {
 
   @Override
   public String getPolicyType() {
+    // return the policy type
     return "Home";
   }
 }

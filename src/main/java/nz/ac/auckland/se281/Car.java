@@ -38,6 +38,7 @@ public class Car extends Policy {
   }
 
   public boolean checkMechanical() {
+    // Method to check if the car is mechanical breakdown
     if ((mechanical.toLowerCase()).contains("y")) {
       return true;
     } else {
@@ -47,6 +48,7 @@ public class Car extends Policy {
 
   @Override
   public String getPolicyType() {
+    // return the policy type
     return "Car";
   }
 }

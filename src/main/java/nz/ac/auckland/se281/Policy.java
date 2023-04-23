@@ -34,18 +34,22 @@ public abstract class Policy {
   }
 
   public double getBasePremium() {
+    // Get the base premium
     return basePremium;
   }
 
   public void setBasePremium(double basePremium) {
+    // Set the base premium
     this.basePremium = basePremium;
   }
 
   public void setDiscountedPremium(double discountedPremium) {
+    // Set the discounted premium
     this.discountedPremium = discountedPremium;
   }
 
   public double getDiscountedPremium() {
+    // Get the discounted premium
     return discountedPremium;
   }
 
